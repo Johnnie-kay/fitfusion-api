@@ -1,0 +1,35 @@
+{
+  "name": "fitfusion-api",
+  "version": "1.0.0",
+  "description": "The service powering our fitfusion project. Built on Expressjs on nodejs using postgress with prisma as the db driver",
+  "main": "main",
+  "scripts": {
+    "test": "jest",
+    "start": "node src/main",
+    "dev": "nodemon src/main"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://stanley-zarttech@github.com/stanley-zarttech/fitfusion.git"
+  },
+  "keywords": [
+    "Fashion",
+    "elegance",
+    "beauty",
+    "accessories"
+  ],
+  "author": "Stanley and Zarttalent Cohost3 students",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/stanley-zarttech/fitfusion/issues"
+  },
+  "homepage": "https://github.com/stanley-zarttech/fitfusion#readme",
+  "dependencies": {
+    "@prisma/client": "^5.20.0",
+    "express": "^4.21.0"
+  },
+  "devDependencies": {
+    "nodemon": "^3.1.4",
+    "prisma": "^5.20.0"
+  }
+}
