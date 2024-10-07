@@ -8,6 +8,7 @@ app.use(bodyParser.urlencoded({ extended: false }))
 app.use(express.json())
 
 
+
 // App routes
 const userRoutes = require('./routes/user.route');
 app.get('/',(req,res)=>{
