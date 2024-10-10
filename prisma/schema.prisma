@@ -16,7 +16,7 @@ datasource db {
 model User {
   id    Int     @id @default(autoincrement())
   email String  @unique
-  fistName  String
+  firstName  String
   lastName String
   password String
   phone String @unique
@@ -58,8 +58,4 @@ model Product {
   updatedAt  DateTime   @updatedAt
 }
 
-model Coupon{
-  percentage Decimal
-  totalAmount Decimal
-  code String
-}
+ 
