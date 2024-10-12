@@ -1,22 +1,25 @@
 const { writeFileSync, appendFileSync, existsSync, readFileSync } = require('node:fs');
-const dbPath = './db/user.db'
+const bcrypt = require('bcryptjs');
+const prisma = require('prisma')
+const { prismaClient } = require('../helpers/prisma')
+
 const signUp = async (body) => {
     try {
 
-        body.id = (Math.random() * 10).toString(32).replace('.', '');
         console.log('body ', body)
-        const exists = existsSync(dbPath)
-        console.log('exists: ', exists);
-        if (exists) {
-            // append to dbPath 
-            appendFileSync(dbPath, '\n' + JSON.stringify(body))
-        } else {
-            await writeFileSync(dbPath, JSON.stringify(body));
-            // console.log('write res: ', writeRes);
-        }
-        return body;
+        const salt = bcrypt.genSaltSync(10)
+        const hashed = bcrypt.hashSync(body.password, salt);
+        body.password = hashed;
+        console.log('hashed: ', hashed)
+        const saved = await prismaClient.user.create({
+            data:
+                body
+        });
+        console.log('saved user: ', saved)
+        return saved;
     } catch (error) {
         console.log('Signup error: ', error.message)
+        return { hasError: true, error };
     }
 }
 
