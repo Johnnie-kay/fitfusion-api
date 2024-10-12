@@ -37,6 +37,7 @@ model Store{
   phone String @unique
   logo String?
   products Product[]
+  staff Staff[]
   createdAt  DateTime   @default(now())
   updatedAt  DateTime   @updatedAt
 
@@ -52,10 +53,41 @@ model Product {
   images String
   sku String
   status String @default("In-Stock")
-  storeId Int 
+  storeId Int
+  reviews Review[]
   store   Store @relation(fields: [storeId], references: [id])
   createdAt  DateTime   @default(now())
   updatedAt  DateTime   @updatedAt
 }
 
- 
+model Coupon{
+  id Int @id @default (autoincrement())
+  percentage Decimal
+  totalAmount Decimal
+  code String
+}
+
+model Staff{
+  id Int @id @default (autoincrement())
+  name String
+  age Int
+  phone Int
+  sex Boolean
+  maritalStatus String
+  userid Int
+  storeId Int
+  store Store @relation(fields: [storeId], references: [id])
+  createdAt DateTime
+  updatedAt DateTime
+}
+
+model Review{
+  id Int @id @default (autoincrement())
+  text String
+  userid Int
+  productid Int
+  product Product @relation(fields: [productid], references: [id])
+  rating String
+  createdAt DateTime
+  updatedAt DateTime
+}
