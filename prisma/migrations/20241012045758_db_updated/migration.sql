@@ -5,10 +5,12 @@
   - Added the required column `firstName` to the `User` table without a default value. This is not possible if the table is not empty.
 
 */
-/*-- AlterTable
+-- AlterTable
 ALTER TABLE `User` DROP COLUMN `fistName`,
     ADD COLUMN `firstName` VARCHAR(191) NOT NULL;
-*/
 
-DROP TABLE IF EXISTS `User`;
+-- AddForeignKey
+ALTER TABLE `Staff` ADD CONSTRAINT `Staff_storeId_fkey` FOREIGN KEY (`storeId`) REFERENCES `Store`(`id`) ON DELETE RESTRICT ON UPDATE CASCADE;
 
+-- AddForeignKey
+ALTER TABLE `Review` ADD CONSTRAINT `Review_productid_fkey` FOREIGN KEY (`productid`) REFERENCES `Product`(`id`) ON DELETE RESTRICT ON UPDATE CASCADE;

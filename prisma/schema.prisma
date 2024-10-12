@@ -37,6 +37,7 @@ model Store{
   phone String @unique
   logo String?
   products Product[]
+  staff Staff[]
   createdAt  DateTime   @default(now())
   updatedAt  DateTime   @updatedAt
 
@@ -53,6 +54,7 @@ model Product {
   sku String
   status String @default("In-Stock")
   storeId Int
+  reviews Review[]
   store   Store @relation(fields: [storeId], references: [id])
   createdAt  DateTime   @default(now())
   updatedAt  DateTime   @updatedAt
@@ -74,6 +76,7 @@ model Staff{
   maritalStatus String
   userid Int
   storeId Int
+  store Store @relation(fields: [storeId], references: [id])
   createdAt DateTime
   updatedAt DateTime
 }
@@ -83,6 +86,7 @@ model Review{
   text String
   userid Int
   productid Int
+  product Product @relation(fields: [productid], references: [id])
   rating String
   createdAt DateTime
   updatedAt DateTime
