@@ -25,6 +25,7 @@ model User {
   isEmailVerifield Boolean?
   isPhoneVerified Boolean?
   role String @default("User")
+  carts Cart[]
   createdAt  DateTime   @default(now())
   updatedAt  DateTime   @updatedAt
 }
@@ -54,6 +55,7 @@ model Product {
   sku String
   status String @default("In-Stock")
   storeId Int
+  cartItems CartItem[]
   reviews Review[]
   store   Store @relation(fields: [storeId], references: [id])
   createdAt  DateTime   @default(now())
@@ -88,6 +90,30 @@ model Review{
   productid Int
   product Product @relation(fields: [productid], references: [id])
   rating String
- createdAt  DateTime   @default(now())
+  createdAt  DateTime   @default(now())
+  updatedAt  DateTime   @updatedAt
+}
+
+model Cart{
+  id Int @id @default (autoincrement())
+  userid Int
+  user User @relation(fields: [userid], references: [id])
+  items String
+  totalPrice Int
+  cartitems CartItem[]
+  createdAt  DateTime   @default(now())
+  updatedAt  DateTime   @updatedAt
+}
+
+model CartItem{
+  id Int @id @default (autoincrement())
+  cartid Int
+  cart Cart @relation(fields: [cartid], references: [id])
+  productid Int
+  product Product @relation(fields: [productid], references: [id])
+  quantity Int
+  unitPrice Int
+  totalPrice Int
+  createdAt  DateTime   @default(now())
   updatedAt  DateTime   @updatedAt
 }
