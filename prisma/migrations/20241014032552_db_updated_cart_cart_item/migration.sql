@@ -1,0 +1,40 @@
+-- AlterTable
+ALTER TABLE `Review` MODIFY `createdAt` DATETIME(3) NOT NULL DEFAULT CURRENT_TIMESTAMP(3);
+
+-- AlterTable
+ALTER TABLE `Staff` MODIFY `createdAt` DATETIME(3) NOT NULL DEFAULT CURRENT_TIMESTAMP(3);
+
+-- CreateTable
+CREATE TABLE `Cart` (
+    `id` INTEGER NOT NULL AUTO_INCREMENT,
+    `userid` INTEGER NOT NULL,
+    `items` VARCHAR(191) NOT NULL,
+    `totalPrice` INTEGER NOT NULL,
+    `createdAt` DATETIME(3) NOT NULL DEFAULT CURRENT_TIMESTAMP(3),
+    `updatedAt` DATETIME(3) NOT NULL,
+
+    PRIMARY KEY (`id`)
+) DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;
+
+-- CreateTable
+CREATE TABLE `CartItem` (
+    `id` INTEGER NOT NULL AUTO_INCREMENT,
+    `cartid` INTEGER NOT NULL,
+    `productid` INTEGER NOT NULL,
+    `quantity` INTEGER NOT NULL,
+    `unitPrice` INTEGER NOT NULL,
+    `totalPrice` INTEGER NOT NULL,
+    `createdAt` DATETIME(3) NOT NULL DEFAULT CURRENT_TIMESTAMP(3),
+    `updatedAt` DATETIME(3) NOT NULL,
+
+    PRIMARY KEY (`id`)
+) DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;
+
+-- AddForeignKey
+ALTER TABLE `Cart` ADD CONSTRAINT `Cart_userid_fkey` FOREIGN KEY (`userid`) REFERENCES `User`(`id`) ON DELETE RESTRICT ON UPDATE CASCADE;
+
+-- AddForeignKey
+ALTER TABLE `CartItem` ADD CONSTRAINT `CartItem_cartid_fkey` FOREIGN KEY (`cartid`) REFERENCES `Cart`(`id`) ON DELETE RESTRICT ON UPDATE CASCADE;
+
+-- AddForeignKey
+ALTER TABLE `CartItem` ADD CONSTRAINT `CartItem_productid_fkey` FOREIGN KEY (`productid`) REFERENCES `Product`(`id`) ON DELETE RESTRICT ON UPDATE CASCADE;
