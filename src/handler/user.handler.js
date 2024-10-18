@@ -13,9 +13,11 @@ const signUpHandler = async (req, res) => {
 const signInHandler = async (req, res) => {
     const { body } = req;
 
-    const result = signIn(body)
-    res.json({ message: 'Signup is successful' })
+    const result = await signIn(body);
+    console.log('signin response: ', result)
+    res.status(result.status).json(result)
 }
+
 
 module.exports = {
     signUpHandler,

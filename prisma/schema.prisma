@@ -26,6 +26,7 @@ model User {
   isPhoneVerified Boolean?
   role String @default("User")
   carts Cart[]
+  verificationTokens VerificationTokens[]
   createdAt  DateTime   @default(now())
   updatedAt  DateTime   @updatedAt
 }
@@ -118,4 +119,15 @@ model CartItem{
   totalPrice Decimal
   createdAt  DateTime   @default(now())
   updatedAt  DateTime   @updatedAt
+}
+
+model VerificationTokens{
+  id Int @id @default (autoincrement())
+  token String
+  userId Int
+  user User @relation(fields: [userId], references: [id])
+  type String
+  expiresAt DateTime
+  createdAt  DateTime   @default(now())
+  updatedAt  DateTime   @updatedAt 
 }
