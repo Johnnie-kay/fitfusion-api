@@ -98,24 +98,24 @@ model Review{
 
 model Cart{
   id Int @id @default (autoincrement())
-  userid Int
-  user User @relation(fields: [userid], references: [id])
+  userId Int
+  user User @relation(fields: [userId], references: [id])
   items String
-  totalPrice Int
-  cartitems CartItem[]
+  totalPrice Decimal
+  cartItems CartItem[]
   createdAt  DateTime   @default(now())
   updatedAt  DateTime   @updatedAt
 }
 
 model CartItem{
   id Int @id @default (autoincrement())
-  cartid Int
-  cart Cart @relation(fields: [cartid], references: [id])
-  productid Int
-  product Product @relation(fields: [productid], references: [id])
+  cartId Int
+  cart Cart @relation(fields: [cartId], references: [id])
+  productId Int
+  product Product @relation(fields: [productId], references: [id])
   quantity Int
-  unitPrice Int
-  totalPrice Int
+  unitPrice Decimal
+  totalPrice Decimal
   createdAt  DateTime   @default(now())
   updatedAt  DateTime   @updatedAt
 }
