@@ -3,21 +3,27 @@ const bcrypt = require('bcryptjs');
 const prisma = require('prisma')
 const { prismaClient } = require('../helpers/prisma');
 const jwt = require('jsonwebtoken');
+const { signUpUserValidatorSchema } = require('../validators/signup-user.validator');
+const { sendEmail } = require('../helpers/email.helper');
 
 
 const signUp = async (body) => {
     try {
 
         console.log('body ', body)
+        const validatedData = await signUpUserValidatorSchema.validateAsync(body)
+        console.log('isDataValid: ', validatedData)
+
         const salt = bcrypt.genSaltSync(10)
         const hashed = bcrypt.hashSync(body.password, salt);
         body.password = hashed;
         console.log('hashed: ', hashed)
         const saved = await prismaClient.user.create({
             data:
-                body
+                validatedData
         });
         console.log('saved user: ', saved)
+        sendEmail('', validatedData.email, '', 'Signup Successful!', 'You are welcome to FitFution');
         return saved;
     } catch (error) {
         console.log('Signup error: ', error.message)
