@@ -17,13 +17,18 @@ const signUp = async (body) => {
         const salt = bcrypt.genSaltSync(10)
         const hashed = bcrypt.hashSync(body.password, salt);
         body.password = hashed;
-        console.log('hashed: ', hashed)
-        const saved = await prismaClient.user.create({
-            data:
-                validatedData
-        });
+
+        // sendEmail('', validatedData.email, '', 'Signup Successful!', 'Signup Successful!', 'You are welcome to FitFution');
+        // return validatedData;
+
+        const saved = await prismaClient.user.
+
+            create({
+                data:
+                    validatedData
+            });
         console.log('saved user: ', saved)
-        sendEmail('', validatedData.email, '', 'Signup Successful!', 'You are welcome to FitFution');
+        sendEmail('', validatedData.email, '', 'Signup Successful!', 'Signup Successful!', 'You are welcome to FitFution');
         return saved;
     } catch (error) {
         console.log('Signup error: ', error.message)
