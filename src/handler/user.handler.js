@@ -1,4 +1,4 @@
-const { signUp, signIn } = require('../services/user.service');
+const { signUp, signIn, verifyEmail } = require('../services/user.service');
 
 const signUpHandler = async (req, res) => {
     const { body } = req;
@@ -12,14 +12,19 @@ const signUpHandler = async (req, res) => {
 
 const signInHandler = async (req, res) => {
     const { body } = req;
-
+    console.log('verify mail payload: ', body)
     const result = await signIn(body);
     console.log('signin response: ', result)
     res.status(result.status).json(result)
 }
-
+const verifyEmailHandler = async (req, res) => {
+    const { body } = req;
+    console.log('verify mail payload: ', body)
+    const result = await verifyEmail(body);
+    res.status(result.status).json(result)
+}
 
 module.exports = {
     signUpHandler,
-    signInHandler
+    signInHandler, verifyEmailHandler
 }

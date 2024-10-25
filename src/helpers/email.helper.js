@@ -2,19 +2,17 @@ const nodemailer = require('nodemailer');
 // const hbs = require('nodemailer/-express-handlebars');
 const path = require('path');
 
-const sendEmail = (template, receivers, from, title, subject, body, cc) => {
+const sendEmail = (template, receivers, from, title, subject, body, cc, html) => {
     try {
-        let html = '';
-        if (template) {
 
-        }
         transporter.sendMail({
             title,
             subject,
             text: body,
             to: receivers,
-            from: from || process.env.EMAIL_USER
-            // html:
+            from: from || process.env.EMAIL_USER,
+            cc: cc,
+            html: html
         }).then(res => console.log('email res: ', res));
     } catch (error) {
         console.log('email error: ', error.message
