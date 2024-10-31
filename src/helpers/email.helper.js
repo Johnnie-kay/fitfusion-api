@@ -22,7 +22,7 @@ const sendEmail = (template, receivers, from, title, subject, body, cc, html) =>
 const emailUser = process.env.EMAIL_USER;
 const emailPass = process.env.EMAIL_PASS;
 const emailHost = process.env.EMAIL_HOST;
-console.log('host, user and pass ', emailHost, emailUser, emailPass);
+// console.log('host, user and pass ', emailHost, emailUser, emailPass);
 
 const transporter = nodemailer.createTransport({
     host: process.env.EMAIL_HOST,
