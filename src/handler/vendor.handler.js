@@ -15,7 +15,9 @@ const verifyVendorEmailHandler = async (req, res) => {
 
 const registerVendorHandler = async (req, res) => {
     const { body } = req;
-    console.log('register vendor: ', body)
+    console.log('register vendor: ', body);
+    const result = await registerVendor(body);
+    return res.status(result.status).json(result);
 }
 
 const addStaffHandler = async (req, res) => {
