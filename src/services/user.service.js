@@ -8,15 +8,19 @@ const { sendEmail } = require('../helpers/email.helper');
 const { generateToken } = require('../helpers/token.helper')
 
 
-const signUp = async (body) => {
+const signUp = async (body, role = 'User') => {
     try {
         console.log('body ', body)
-        const validatedData = await signUpUserValidatorSchema.validateAsync(body)
+        const validatedData = await signUpUserValidatorSchema.validateAsync(body).catch((err) => {
+            console.log('error: ', err)
+            return { status: status.INTERNAL_SERVER_ERROR, data: store, message: err };
+        })
         console.log('isDataValid: ', validatedData)
 
         const salt = bcrypt.genSaltSync(10)
         const hashed = bcrypt.hashSync(body.password, salt);
-        body.password = hashed;
+        validatedData.password = hashed;
+        console.log('hashed password: ', hashed);
 
         // sendEmail('', validatedData.email, '', 'Signup Successful!', 'Signup Successful!', 'You are welcome to FitFution');
         // return validatedData;
@@ -25,7 +29,7 @@ const signUp = async (body) => {
 
             create({
                 data:
-                    validatedData
+                    { ...validatedData, role: role }
             });
         console.log('saved user: ', saved);
         const token = generateToken();
