@@ -1,8 +1,12 @@
-
+const { createProduct } = require('../services/product.service')
 
 const createProductHandler = async (req, res) => {
     const { body } = req;
-    console.log('product body: ', body)
+    const { files } = req;
+    // console.log('files: ', files)
+    console.log('product body: ', body);
+    const result = await createProduct(body, files);
+    res.status(result.status).json({ message: 'Product created successfully', data: result.data })
 }
 
 const getProductByVendorHandler = async (req, res) => {
